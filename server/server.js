@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const path = require("path");
 // require("dotenv").config();
+const api = require("./routes/auth.routes");
 
 const userModel = require("./models/User");
 
@@ -54,9 +55,9 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(bodyParser.json());
 
 //index route
-app.get("/", (req, res) => {
-  res.send("Invalid Endpoint");
-});
+// app.get("*", (req, res) => {
+//   res.send("Invalid Endpoint");
+// });
 // app.post("/add_user", async (request, response) => {
 //   const user = new userModel(request.body);
 
@@ -69,13 +70,27 @@ app.get("/", (req, res) => {
 //   }
 // });
 
-app.get("*", (req, res) => {
+app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "client/public/index.html"));
 });
+
+app.use("/api", api);
 
 //start server
 app.listen(port, () => {
   console.log("------------------------------");
   console.log("server started on port " + port);
   console.log("------------------------------");
+});
+
+// Express error handling
+app.use((req, res, next) => {
+  setImmediate(() => {
+    next(new Error("Something went wrong"));
+  });
+});
+app.use(function (err, req, res, next) {
+  console.error(err.message);
+  if (!err.statusCode) err.statusCode = 500;
+  res.status(err.statusCode).send(err.message);
 });

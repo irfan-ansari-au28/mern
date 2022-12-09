@@ -1,13 +1,23 @@
+// models/User.js
 const mongoose = require("mongoose");
-const UserSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
+const Schema = mongoose.Schema;
+const uniqueValidator = require("mongoose-unique-validator");
+let userSchema = new Schema(
+  {
+    name: {
+      type: String,
+    },
+    email: {
+      type: String,
+      unique: true,
+    },
+    password: {
+      type: String,
+    },
   },
-  lucky_number: {
-    type: Number,
-    default: 0,
-  },
-});
-const User = mongoose.model("User", UserSchema);
-module.exports = User;
+  {
+    collection: "users",
+  }
+);
+userSchema.plugin(uniqueValidator, { message: "Email already in use." });
+module.exports = mongoose.model("User", userSchema);
