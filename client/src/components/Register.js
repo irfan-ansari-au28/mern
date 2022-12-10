@@ -147,9 +147,9 @@ const Register = () => {
                       </label>
                     </div>
                     <div>
-                      <a href="#" className="font-medium text-indigo-600">
-                        Forgot Password?
-                      </a>
+                      {/* <a href="#" className="font-medium text-indigo-600"> */}
+                      Forgot Password?
+                      {/* </a> */}
                     </div>
                   </div>
 
@@ -162,11 +162,8 @@ const Register = () => {
                     </button>
                   </div>
                   <p className="text-center">
-                    Not registered yet?{" "}
-                    <a
-                      href="#"
-                      className="text-indigo-600 font-medium inline-flex space-x-1 items-center"
-                    >
+                    Not registered yet?
+                    <div className="text-indigo-600 font-medium inline-flex space-x-1 items-center">
                       <span>Register now </span>
                       <span>
                         <svg
@@ -184,7 +181,7 @@ const Register = () => {
                           />
                         </svg>
                       </span>
-                    </a>
+                    </div>
                   </p>
                 </div>
               </div>

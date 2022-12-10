@@ -10,14 +10,14 @@ const register = (username, email, password) => {
   });
 };
 
-const login = (username, password) => {
+const login = (email, password) => {
   return axios
     .post(API_URL + "signin", {
-      username,
+      email,
       password,
     })
     .then((response) => {
-      if (response.data.username) {
+      if (response.data.token) {
         localStorage.setItem("user", JSON.stringify(response.data));
       }
 
@@ -27,9 +27,9 @@ const login = (username, password) => {
 
 const logout = () => {
   localStorage.removeItem("user");
-  return axios.post(API_URL + "signout").then((response) => {
-    return response.data;
-  });
+  //   return axios.post(API_URL + "signout").then((response) => {
+  //     return response.data;
+  //   });
 };
 
 const getCurrentUser = () => {
