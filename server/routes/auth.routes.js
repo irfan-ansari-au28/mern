@@ -9,7 +9,7 @@ const { check, validationResult } = require("express-validator");
 router.post(
   "/register-user",
   [
-    check("name")
+    check("username")
       .not()
       .isEmpty()
       .isLength({ min: 3 })
