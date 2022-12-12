@@ -1,11 +1,15 @@
 import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
+
 import "./App.css";
 import Home from "./components/Home";
 import Login from "./components/Login";
 import Logout from "./components/Logout";
 import Register from "./components/Register";
+import AuthService from "./services/auth.service";
 
 function App() {
+  const currentUser = AuthService.getCurrentUser();
+  console.log(currentUser);
   return (
     // <div className="bg-slate-500 ">
     //   <header>

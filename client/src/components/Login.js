@@ -7,10 +7,13 @@ import * as Yup from "yup";
 import { login } from "../slices/auth";
 import { clearMessage } from "../slices/message";
 
+import UserService from "../services/user.service";
+
 const Login = () => {
   //   let navigate = useNavigate();
 
   const [loading, setLoading] = useState(false);
+  const [users, setUsers] = useState([]);
 
   const { isLoggedIn } = useSelector((state) => state.auth);
   const { message } = useSelector((state) => state.message);
@@ -42,15 +45,29 @@ const Login = () => {
       .then(() => {
         // navigate("/");
         // window.location.reload();
-        alert("logged in successfully");
+        // alert("logged in successfully");
       })
       .catch(() => {
         setLoading(false);
       });
   };
 
+  useEffect(() => {
+    const fetchData = async () => {
+      if (isLoggedIn) {
+        const users = await UserService.getAllUsers().then((res) => res.data);
+        console.log("data", users);
+      }
+    };
+    fetchData();
+  }, [isLoggedIn]);
+
   if (isLoggedIn) {
-    return <Navigate to="/" />;
+    console.log(users, "users");
+    if (users) {
+      return <Navigate to="/" />;
+    }
+    return <Navigate to="/login" />;
   }
 
   return (

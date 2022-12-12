@@ -1,9 +1,16 @@
 import axios from "axios";
+import AuthService from "./auth.service";
 
-const API_URL = "http://localhost:3000/api/";
+const API_URL = "http://localhost:8080/api";
 
 const getAllUsers = () => {
-  return axios.get(API_URL);
+  let token = null;
+  token = AuthService.getCurrentUser().token;
+  if (token) {
+    return axios.get(API_URL, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+  }
 };
 
 // const getUserBoard = () => {

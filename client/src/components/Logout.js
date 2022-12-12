@@ -1,20 +1,22 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../slices/auth";
 
 const Logout = () => {
+  let navigate = useNavigate();
   const dispatch = useDispatch();
   const handleLogout = () => {
     dispatch(logout())
       .unwrap()
       .then(() => {
-        alert("logged Out successfully !!");
+        navigate("/");
+        window.location.reload();
       });
   };
   return (
     <div onClick={handleLogout}>
-      <Link to={"/login"}>Logout</Link>
+      <Link to={"/"}>Logout</Link>
     </div>
   );
 };
